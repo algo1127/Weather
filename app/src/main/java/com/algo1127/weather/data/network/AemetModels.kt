@@ -64,6 +64,8 @@ data class AemetMunicipality(
     @Json(name = "nombre") val nombre: String?,
     @Json(name = "latitud") val latitud: String?,
     @Json(name = "longitud") val longitud: String?,
+    @Json(name = "latitud_dec") val latitudDec: String?,
+    @Json(name = "longitud_dec") val longitudDec: String?,
     @Json(name = "altitud") val altitud: String?,
     @Json(name = "provincia") val provincia: String?
 )
@@ -95,7 +97,9 @@ data class AemetDay(
     @Json(name = "sensTermica") val sensTermica: Temperature?,
     @Json(name = "humedadRelativa") val humedadRelativa: Humidity?,
     @Json(name = "uvMax") val uvMax: Int?,
-    @Json(name = "fecha") val fecha: String?
+    @Json(name = "fecha") val fecha: String?,
+    @Json(name = "orto") val orto: String?,
+    @Json(name = "ocaso") val ocaso: String?
 )
 
 // === NESTED DATA STRUCTURES ===

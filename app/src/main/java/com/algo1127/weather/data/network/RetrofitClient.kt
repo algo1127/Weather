@@ -2,7 +2,6 @@ package com.algo1127.weather.data.network
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -11,7 +10,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     // TODO: PASTE YOUR AEMET API KEY HERE
-    private const val API_KEY = "APIKEY"
+    private const val API_KEY = "API_HERE"
     private const val BASE_URL = "https://opendata.aemet.es/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -21,13 +20,18 @@ object RetrofitClient {
     private val apiKeyInterceptor = Interceptor { chain ->
         val original = chain.request()
         val requestBuilder = original.newBuilder()
-            // FIX 1: Add User-Agent and Accept headers.
-            // This stops AEMET's firewall from dropping "scraper-looking" connections.
-            .header("User-Agent", "PotatoWeather/1.0 (Android)")
-            .header("Accept", "application/json")
+            // USE A REAL BROWSER USER-AGENT: This is the most effective way to avoid 
+            // AEMET's "BAD_DECRYPT" which is often a stealthy rate-limit or bot-block.
+            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
+            .header("Accept", "application/json, text/plain, */*")
+            .header("Accept-Language", "es-ES,es;q=0.9,en;q=0.8")
+            .header("Connection", "keep-alive")
 
-        // FIX 2: Only add the API key to the initial /api/ call.
-        if (original.url.encodedPath.contains("/api/")) {
+        if (original.url.encodedPath.contains("/api/") && !original.url.encodedPath.contains("/maestro/")) {
+            requestBuilder.header("api_key", API_KEY)
+        }
+
+        if (original.url.encodedPath.contains("/maestro/municipios")) {
             requestBuilder.header("api_key", API_KEY)
         }
 
@@ -35,12 +39,12 @@ object RetrofitClient {
     }
 
     private val client = OkHttpClient.Builder()
-        .protocols(listOf(Protocol.HTTP_1_1))
-        .retryOnConnectionFailure(true) // FIX 3: Automatically retry if AEMET drops the connection
-        .addInterceptor(loggingInterceptor)
+        // REMOVED Protocol.HTTP_1_1 restriction to allow HTTP/2 if the server supports it better
+        .retryOnConnectionFailure(true)
         .addInterceptor(apiKeyInterceptor)
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
     val apiService: AemetApiService by lazy {

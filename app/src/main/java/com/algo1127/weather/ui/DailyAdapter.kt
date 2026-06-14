@@ -15,6 +15,7 @@ class DailyAdapter(private val items: List<DailyForecastItem>) :
         val tvDayName: TextView = view.findViewById(R.id.tvDayName)
         val tvDaySky: TextView = view.findViewById(R.id.tvDaySky)
         val tvDayRain: TextView = view.findViewById(R.id.tvDayRain)
+        val lottieRaindropIcon: LottieAnimationView = view.findViewById(R.id.lottieRaindropIcon)
         val tvDayMin: TextView = view.findViewById(R.id.tvDayMin)
         val tvDayMax: TextView = view.findViewById(R.id.tvDayMax)
         val lottieDailyIcon: LottieAnimationView = view.findViewById(R.id.lottieDailyIcon)
@@ -30,7 +31,16 @@ class DailyAdapter(private val items: List<DailyForecastItem>) :
         val item = items[position]
         holder.tvDayName.text = item.dayName
         holder.tvDaySky.text = item.skyDescription
-        holder.tvDayRain.text = if (item.rainProbability > 0) "💧 ${item.rainProbability}%" else ""
+        
+        if (item.rainProbability > 0) {
+            holder.tvDayRain.text = "${item.rainProbability}%"
+            holder.lottieRaindropIcon.visibility = View.VISIBLE
+            holder.lottieRaindropIcon.playAnimation()
+        } else {
+            holder.tvDayRain.text = ""
+            holder.lottieRaindropIcon.visibility = View.GONE
+        }
+
         holder.tvDayMin.text = "${item.minTemp}°"
         holder.tvDayMax.text = "${item.maxTemp}°"
 

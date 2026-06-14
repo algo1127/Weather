@@ -5,9 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/weather_bg_gradient"
+
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
+
+    <com.algo1127.weather.SkyBackgroundView
+        android:id="@+id/skyBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
     <!-- Loading Spinner -->
     <ProgressBar
@@ -65,6 +71,10 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="18sp"
+                        app:autoSizeMaxTextSize="28sp"
                         tools:text="Madrid" />
                     <TextView
                         android:id="@+id/tvProvince"
@@ -101,7 +111,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp">
 
-                <!-- NEW: Massive Hero Lottie Icon -->
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/lottieHeroIcon"
                     android:layout_width="160dp"
@@ -180,16 +189,25 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="12dp">
 
-                <!-- Humidity Card -->
+                <!-- Humidity Card (WITH HUMIDITY ICON) -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:background="@drawable/weather_card_bg"
                     android:padding="16dp"
                     android:layout_marginEnd="6dp"
-                    android:elevation="4dp">
+                    android:elevation="4dp"
+                    android:gravity="center_vertical">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottieHumidityIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -198,7 +216,8 @@
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.1"
-                        android:alpha="0.8" />
+                        android:alpha="0.8"
+                        android:layout_marginTop="8dp" />
                     <TextView
                         android:id="@+id/tvHumidity"
                         android:layout_width="wrap_content"
@@ -207,25 +226,30 @@
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeMaxTextSize="24sp"
                         tools:text="20% - 40%" />
                 </LinearLayout>
 
-                <!-- Wind Card (With Beaufort Lottie) -->
+                <!-- Wind Card -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:background="@drawable/weather_card_bg"
                     android:padding="16dp"
                     android:layout_marginStart="6dp"
-                    android:elevation="4dp">
+                    android:elevation="4dp"
+                    android:gravity="center_vertical">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottieWindIcon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true" />
 
@@ -238,7 +262,7 @@
                         android:textStyle="bold"
                         android:letterSpacing="0.1"
                         android:alpha="0.8"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="8dp" />
                     <TextView
                         android:id="@+id/tvWind"
                         android:layout_width="wrap_content"
@@ -248,13 +272,17 @@
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
                         android:layout_marginTop="4dp"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeMaxTextSize="20sp"
                         tools:text="SE 10 km/h" />
                     <TextView
                         android:id="@+id/tvWindGust"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#E0E7FF"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:alpha="0.7"
                         tools:text="Rachas: 25 km/h" />
                 </LinearLayout>
@@ -266,21 +294,22 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="32dp">
 
-                <!-- UV Card (With UV Index Lottie) -->
+                <!-- UV Card -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:background="@drawable/weather_card_bg"
                     android:padding="16dp"
                     android:layout_marginEnd="6dp"
-                    android:elevation="4dp">
+                    android:elevation="4dp"
+                    android:gravity="center_vertical">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottieUvIcon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true" />
 
@@ -293,7 +322,7 @@
                         android:textStyle="bold"
                         android:letterSpacing="0.1"
                         android:alpha="0.8"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="8dp" />
                     <TextView
                         android:id="@+id/tvUV"
                         android:layout_width="wrap_content"
@@ -303,24 +332,29 @@
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
                         android:layout_marginTop="4dp"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeMaxTextSize="24sp"
                         tools:text="9 (Muy Alto)" />
                 </LinearLayout>
 
-                <!-- Rain Card -->
+                <!-- Rain Card (WITH RAIN ICON) -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:background="@drawable/weather_card_bg"
                     android:padding="16dp"
                     android:layout_marginStart="6dp"
-                    android:elevation="4dp">
+                    android:elevation="4dp"
+                    android:gravity="center_vertical">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottieRainIcon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true" />
 
@@ -333,7 +367,7 @@
                         android:textStyle="bold"
                         android:letterSpacing="0.1"
                         android:alpha="0.8"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="8dp" />
                     <TextView
                         android:id="@+id/tvRain"
                         android:layout_width="wrap_content"
@@ -343,7 +377,100 @@
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
                         android:layout_marginTop="4dp"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeMaxTextSize="24sp"
                         tools:text="0%" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <!-- Sunrise Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/weather_card_bg"
+                    android:padding="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:elevation="4dp"
+                    android:gravity="center_vertical">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottieSunriseIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AMANECER"
+                        android:textColor="#E0E7FF"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1"
+                        android:alpha="0.8"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:id="@+id/tvSunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="4dp"
+                        tools:text="06:45" />
+                </LinearLayout>
+
+                <!-- Sunset Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/weather_card_bg"
+                    android:padding="16dp"
+                    android:layout_marginStart="6dp"
+                    android:elevation="4dp"
+                    android:gravity="center_vertical">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottieSunsetIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ATARDECER"
+                        android:textColor="#E0E7FF"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1"
+                        android:alpha="0.8"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:id="@+id/tvSunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="4dp"
+                        tools:text="21:30" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -360,7 +487,6 @@
                 android:alpha="0.8"
                 android:layout_marginBottom="12dp" />
 
-            <!-- NEW ID: Hook this up to the 7 daily objects in the JSON -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDailyForecast"
                 android:layout_width="match_parent"
@@ -368,17 +494,17 @@
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 android:layout_marginBottom="24dp" />
-            <!-- 6. Legal Footer -->
 
-            <TextView
+            <!-- 6. Legal Footer -->
+            <com.algo1127.weather.ui.StrokeTextView
                 android:id="@+id/tvLegalFooter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#E0E7FF"
+                android:textColor="#000000"
                 android:textSize="11sp"
-                android:alpha="0.5"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 tools:text="Actualizado: 12/06 14:01 | © AEMET" />
 
         </LinearLayout>

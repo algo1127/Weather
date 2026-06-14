@@ -6,6 +6,10 @@ import com.algo1127.weather.data.repository.WeatherBundle
 sealed class WeatherUiState {
     object Loading : WeatherUiState()
     // Por esto:
-    data class Success(val bundle: WeatherBundle) : WeatherUiState()
+    data class Success(
+        val bundle: WeatherBundle,
+        val calculatedSunrise: String? = null,
+        val calculatedSunset: String? = null
+    ) : WeatherUiState()
     data class Error(val message: String) : WeatherUiState()
 }

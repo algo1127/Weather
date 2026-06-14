@@ -12,7 +12,7 @@ android {
         minSdk = 28
         targetSdk = 37
         versionCode = 1
-        versionName = "1.0"
+        versionName = "2026-06-13A"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,6 +62,7 @@ dependencies {
     // 4. Coroutines (Async operations - fetching data without freezing UI)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
+    implementation(libs.play.services.location)
 
     // 5. ViewModel + LiveData (UI data holders - keeps data alive during rotation)
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")

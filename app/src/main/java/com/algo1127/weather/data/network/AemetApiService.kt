@@ -30,5 +30,10 @@ interface AemetApiService {
 
     // 🆕 Master municipalities list (for GPS)
     @GET("opendata/api/maestro/municipios/")
-    suspend fun getAllMunicipalities(): List<AemetMunicipality>
+    suspend fun getAllMunicipalities(): AemetInitialResponse
+
+    @GET
+    suspend fun getActualMunicipalities(
+        @Url datosUrl: String
+    ): List<AemetMunicipality>
 }

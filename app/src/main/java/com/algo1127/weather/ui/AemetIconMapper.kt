@@ -37,6 +37,7 @@ object AemetIconMapper {
             12, 13 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night else R.raw.thunderstorms_day
                 hasRain && isExtreme -> if (isNight) R.raw.extreme_night_rain else R.raw.extreme_day_rain
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.partly_cloudy_night_drizzle else R.raw.partly_cloudy_day_drizzle
                 hasRain -> if (isNight) R.raw.partly_cloudy_night_rain else R.raw.partly_cloudy_day_rain
                 hasSnow && isExtreme -> if (isNight) R.raw.extreme_night_snow else R.raw.extreme_day_snow
                 hasSnow -> if (isNight) R.raw.partly_cloudy_night_snow else R.raw.partly_cloudy_day_snow
@@ -50,6 +51,7 @@ object AemetIconMapper {
             14, 15 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night_overcast else R.raw.thunderstorms_day_overcast
                 hasRain && isExtreme -> if (isNight) R.raw.extreme_night_rain else R.raw.extreme_day_rain
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.overcast_night_drizzle else R.raw.overcast_day_drizzle
                 hasRain -> if (isNight) R.raw.overcast_night_rain else R.raw.overcast_day_rain
                 hasSnow && isExtreme -> if (isNight) R.raw.extreme_night_snow else R.raw.extreme_day_snow
                 hasSnow -> if (isNight) R.raw.overcast_night_snow else R.raw.overcast_day_snow
@@ -61,12 +63,14 @@ object AemetIconMapper {
             16 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night_overcast else R.raw.thunderstorms_day_overcast
                 hasRain && isExtreme -> if (isNight) R.raw.extreme_night_rain else R.raw.extreme_day_rain
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.overcast_night_drizzle else R.raw.overcast_day_drizzle
                 hasRain -> if (isNight) R.raw.overcast_night_rain else R.raw.overcast_day_rain
                 hasSnow && isExtreme -> if (isNight) R.raw.extreme_night_snow else R.raw.extreme_day_snow
                 hasSnow -> if (isNight) R.raw.overcast_night_snow else R.raw.overcast_day_snow
                 else -> if (isNight) R.raw.overcast_night else R.raw.overcast_day
             }
             17 -> when {
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.partly_cloudy_night_drizzle else R.raw.partly_cloudy_day_drizzle
                 hasRain -> if (isNight) R.raw.partly_cloudy_night_rain else R.raw.partly_cloudy_day_rain
                 hasSnow -> if (isNight) R.raw.partly_cloudy_night_snow else R.raw.partly_cloudy_day_snow
                 else -> if (isNight) R.raw.partly_cloudy_night else R.raw.partly_cloudy_day
@@ -104,29 +108,41 @@ object AemetIconMapper {
             // 🌨️ SNOW CONDITIONS (41-46, 61-66)
             41, 61 -> when {
                 isExtreme -> if (isNight) R.raw.extreme_night_snow else R.raw.extreme_day_snow
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.partly_cloudy_night_drizzle else R.raw.partly_cloudy_day_drizzle
+                hasRain -> if (isNight) R.raw.partly_cloudy_night_rain else R.raw.partly_cloudy_day_rain
                 else -> if (isNight) R.raw.partly_cloudy_night_snow else R.raw.partly_cloudy_day_snow
             }
             42, 62 -> when {
                 isExtreme -> if (isNight) R.raw.extreme_night_snow else R.raw.extreme_day_snow
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.overcast_night_drizzle else R.raw.overcast_day_drizzle
+                hasRain -> if (isNight) R.raw.overcast_night_rain else R.raw.overcast_day_rain
                 else -> if (isNight) R.raw.overcast_night_snow else R.raw.overcast_day_snow
             }
             43, 63 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night_overcast_snow else R.raw.thunderstorms_day_overcast_snow
                 isExtreme -> if (isNight) R.raw.thunderstorms_night_extreme_snow else R.raw.thunderstorms_day_extreme_snow
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.overcast_night_drizzle else R.raw.overcast_day_drizzle
+                hasRain -> if (isNight) R.raw.overcast_night_rain else R.raw.overcast_day_rain
                 else -> if (isNight) R.raw.overcast_night_snow else R.raw.overcast_day_snow
             }
             44, 64 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night_snow else R.raw.thunderstorms_day_snow
                 isExtreme -> if (isNight) R.raw.thunderstorms_night_extreme_snow else R.raw.thunderstorms_day_extreme_snow
+                descLower.contains("lluvia escasa") -> R.raw.drizzle
+                hasRain -> R.raw.rain
                 else -> R.raw.snow
             }
             45, 65 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night_overcast_snow else R.raw.thunderstorms_day_overcast_snow
                 isExtreme -> if (isNight) R.raw.thunderstorms_night_extreme_snow else R.raw.thunderstorms_day_extreme_snow
+                descLower.contains("lluvia escasa") -> if (isNight) R.raw.overcast_night_drizzle else R.raw.overcast_day_drizzle
+                hasRain -> if (isNight) R.raw.overcast_night_rain else R.raw.overcast_day_rain
                 else -> if (isNight) R.raw.overcast_night_snow else R.raw.overcast_day_snow
             }
             46, 66 -> when {
                 hasThunder -> if (isNight) R.raw.thunderstorms_night_extreme_snow else R.raw.thunderstorms_day_extreme_snow
+                descLower.contains("lluvia escasa") -> R.raw.drizzle
+                hasRain -> R.raw.rain
                 else -> R.raw.snow
             }
 
@@ -239,6 +255,32 @@ object AemetIconMapper {
             in 103..117 -> R.raw.wind_beaufort_11
             else -> R.raw.wind_beaufort_12
         }
+    }
+
+    /**
+     * Maps Wind Direction to specific animated icons
+     */
+    @RawRes
+    fun getWindDirectionIcon(direction: String?): Int {
+        return when (direction?.uppercase()) {
+            "N" -> R.raw.wind_direction_n
+            "S" -> R.raw.wind_direction_s
+            "E" -> R.raw.wind_direction_e
+            "W", "O" -> R.raw.wind_direction_w
+            "NE" -> R.raw.wind_direction_ne
+            "NW", "NO" -> R.raw.wind_direction_nw
+            "SE" -> R.raw.wind_direction_se
+            "SW", "SO" -> R.raw.wind_direction_sw
+            else -> R.raw.compass
+        }
+    }
+
+    /**
+     * Returns the animated raindrop icon
+     */
+    @RawRes
+    fun getRaindropIcon(): Int {
+        return R.raw.raindrop
     }
 
     /**
